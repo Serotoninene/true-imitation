@@ -8,6 +8,12 @@
 // Frames
 
 // Components
+@import "./Components/CanvasContainer.scss";
+@import "./Components/Navbar.scss";
+@import "./Components/Button.scss";
+
+// Homepage
+@import "./Pages/Homepage/Herobanner.scss";
 
 // React-var-gui
 @import "/node_modules/react-dat-gui/dist/index.css";

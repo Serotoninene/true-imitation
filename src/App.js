@@ -1,14 +1,14 @@
+// React Components
+import Navbar from "./Components/Navbar";
 // Three components
-import BackgroundScene from "./Three/ThreeScenes/BackgroundScene";
-import CanvasContainer from "./Three/ThreeElements/CanvasContainer";
+import Homepage from "./Pages/Homepage/Homepage";
 import "./Scss/style.scss";
 
 function App() {
   return (
     <div className="App">
-      <CanvasContainer>
-        <BackgroundScene />
-      </CanvasContainer>
+      <Navbar />
+      <Homepage />
     </div>
   );
 }
