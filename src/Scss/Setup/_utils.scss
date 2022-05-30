@@ -87,3 +87,15 @@
 .rightSide {
   grid-column: span 6;
 }
+
+.hrLine {
+  background-color: $white;
+  height: 0.5px;
+  width: 100%;
+}
+
+.vrtLine {
+  background-color: $white;
+  width: 0.5px;
+  height: 100%;
+}

@@ -1,7 +1,9 @@
 precision mediump float;
+
 varying vec2 vUv;
 
-uniform sampler2D uTexture;
+uniform sampler2D uTexture1;
+uniform sampler2D uTexture2;
 uniform sampler2D uDisplacementMap;
 uniform float uRadius;
 uniform float uWidth;
@@ -20,9 +22,8 @@ void main(){
   float circ = 1. - smoothstep(-uWidth, 0.0, uRadius * distance(start, newUV) - prog*(1.+uWidth));
   float intpl = pow(abs(circ), 1.);
 
-  vec4 backgroundImg = texture2D(uTexture, (newUV - 0.5) *  (1.0 - intpl) + 0.5) * vec4(0.9, 0.5, 0.6, 1.0); 
-  vec4 counterbackground = texture2D(uTexture,(newUV - 0.5) * intpl + 0.5) * vec4(0.333,0.333,0.9, 1.0);
+  vec4 backgroundImg = texture2D(uTexture1, (newUV - 0.5) *  (1.0 - intpl) + 0.5); 
+  vec4 counterbackground = texture2D(uTexture2,(newUV - 0.5) * intpl + 0.5);
 
   gl_FragColor = mix(backgroundImg, counterbackground, intpl);
-  // gl_FragColor = vec4(1.0,0.0,0.0,1.0);
 }

@@ -10,7 +10,9 @@ export default class BackgroundMaterial extends THREE.ShaderMaterial {
     super({
       uniforms: {
         uTime: { value: 0 },
-        uTexture: { value: null },
+        uTexture1: { value: new THREE.Texture() },
+        uTexture2: { value: new THREE.Texture() },
+        zMax: { value: null },
         uDisplacementMap: { value: null },
         uRadius: { value: 0.99, type: "f", min: 0.1, max: 2 },
         uWidth: { value: 0.55, type: "f", min: 0, max: 1 },

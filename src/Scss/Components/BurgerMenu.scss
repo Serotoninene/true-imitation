@@ -1,0 +1,10 @@
+.BurgerMenu {
+  width: 40px;
+  .hrLine {
+    margin-bottom: 8px;
+  }
+
+  .hrLine:last-of-type {
+    margin-bottom: 0;
+  }
+}

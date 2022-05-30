@@ -1,37 +1,88 @@
 #Herobanner {
   height: 100vh;
-  h1 {
-    color: white;
-    font-size: 4rem;
+  color: $white;
+  background-size: cover;
+  background-position-y: bottom;
+  background-position-x: center;
+  background-repeat: no-repeat;
+
+  .leftSection {
+    grid-column-start: span 6;
   }
 
-  .buttonContainer {
-    opacity: 0;
-    transform: translate(0, 50%);
-  }
-
-  .footer {
-    color: white;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 45px;
-
-    .section {
-      grid-column-start: span 6;
+  .rightSection {
+    height: 100%;
+    grid-column-start: span 6;
+    .title {
+      height: 82%;
+      padding: 40px 0;
       opacity: 0;
-      transform: translate(0, 50%);
+      transform: translate(0, 50px);
+      h1 {
+        font-size: 64px;
+      }
+    }
+    .footer {
+      height: 18%;
+
+      h2 {
+        opacity: 0;
+        transform: translate(0, 50px);
+      }
+
+      .trueIcon {
+        width: 32px;
+        opacity: 0;
+        transform: translate(0, 50px);
+      }
+    }
+  }
+
+  .hrLine {
+    width: 0;
+  }
+
+  .vrtLine {
+    height: 0;
+  }
+
+  @media screen and (max-width: 772px) {
+    background-position: 0%;
+    .leftSection {
+      display: none;
     }
 
-    h2 {
-      font-size: 1.1rem;
+    .rightSection {
+      grid-column-start: span 12;
+      height: 64%;
     }
-    h3 {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 576px) {
+    .rightSection {
+      height: 76%;
     }
-    p {
-      font-size: 0.7rem;
+  }
+
+  @media screen and (max-width: 380px) {
+    .rightSection {
+      .title {
+        h1 {
+          font-size: 32px;
+        }
+        h5 {
+          font-size: 16px;
+        }
+      }
+      .footer {
+        h2 {
+          font-size: 24px;
+        }
+
+        .trueIcon {
+          width: 24px;
+        }
+      }
     }
   }
 }

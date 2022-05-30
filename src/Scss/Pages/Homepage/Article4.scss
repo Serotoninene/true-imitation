@@ -1,0 +1,56 @@
+#Article4 {
+  background-color: $sweetBeige;
+  padding: 80px 32px 32px;
+
+  .hrLine {
+    width: 100%;
+    height: 0.5px;
+    background-color: $dark;
+    margin-bottom: 16px;
+  }
+
+  .article {
+    margin-top: 24px;
+
+    h2 {
+      text-align: end;
+    }
+  }
+
+  // media queries
+  @media screen and (max-width: 992px) {
+  }
+
+  @media screen and (max-width: 772px) {
+  }
+  @media screen and (max-width: 576px) {
+    padding: 80px 16px 16px;
+
+    h1 {
+      font-size: 40px;
+    }
+
+    .article {
+      h2 {
+        font-size: 40px;
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    h1 {
+      font-size: 32px;
+    }
+
+    .article {
+      h2 {
+        font-size: 32px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 380px) {
+    .article p {
+      font-size: 8px;
+    }
+  }
+}

@@ -11,9 +11,16 @@
 @import "./Components/CanvasContainer.scss";
 @import "./Components/Navbar.scss";
 @import "./Components/Button.scss";
+@import "./Components/BurgerMenu.scss";
 
 // Homepage
+@import "./Pages/Homepage/Intro.scss";
 @import "./Pages/Homepage/Herobanner.scss";
+@import "./Pages/Homepage/Article1.scss";
+@import "./Pages/Homepage/Article2.scss";
+@import "./Pages/Homepage/Article3.scss";
+@import "./Pages/Homepage/Article4.scss";
+@import "./Pages/Homepage/Contact.scss";
 
 // React-var-gui
 @import "/node_modules/react-dat-gui/dist/index.css";

@@ -1,5 +1,10 @@
 import React from "react";
-
 export default function Button(props) {
-  return <div className="Button relative">{props.children}</div>;
+  const { buttonRef } = props;
+
+  return (
+    <div ref={buttonRef} className="Button relative">
+      {props.children}
+    </div>
+  );
 }

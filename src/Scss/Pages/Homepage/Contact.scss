@@ -1,0 +1,99 @@
+#Contact {
+  background-color: $sweetBeige;
+  padding-top: 80px;
+
+  h1 {
+    font-size: 89px;
+    line-height: 165%;
+
+    span {
+      color: $deepOrange;
+      font-family: "Prettywise";
+    }
+  }
+
+  .footerSection {
+    grid-column-start: span 5;
+  }
+
+  .footer {
+    padding: 0 32px;
+  }
+
+  .socials div:last-of-type {
+    padding: 32px;
+    width: 100%;
+    h4 {
+      margin-bottom: 16px;
+      font-size: 32px;
+    }
+
+    a {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+  }
+
+  .iconContainer {
+    grid-column-start: span 2;
+
+    .icon {
+      width: 5vw;
+    }
+  }
+
+  .newsletter {
+    padding: 32px;
+
+    form input {
+      margin-top: 48px;
+      background-color: transparent;
+      border: none;
+      border-bottom: $deepOrange 1px solid;
+      color: $deepOrange;
+      padding: 10px 0;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $deepOrange;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .hrLine,
+  .vrtLine {
+    background-color: $dark;
+  }
+
+  // Media queries
+  @media screen and (max-width: 772px) {
+  }
+  @media screen and (max-width: 576px) {
+    h1 {
+      font-size: 32px;
+      margin-bottom: 48px;
+    }
+
+    .footerSection {
+      grid-column-start: span 12;
+    }
+
+    .footer {
+      padding: 0 8px;
+    }
+
+    .iconContainer,
+    .socials .vrtLine {
+      display: none;
+    }
+
+    .newsletter h5 {
+      font-size: 14px;
+    }
+  }
+}

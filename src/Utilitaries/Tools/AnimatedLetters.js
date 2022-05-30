@@ -10,6 +10,7 @@ const AnimatedLetters = ({
   disable,
   toggleActions,
   spacing,
+  stagger,
   markers,
   delay,
   end,
@@ -45,7 +46,7 @@ const AnimatedLetters = ({
     tl.to(lettersRef.current, {
       y: 0,
       rotate: 0,
-      stagger: 0.02,
+      stagger: stagger ? stagger : 0.02,
       ease: Power3.easeOut,
       delay: delay ? delay : 0.4,
     });
@@ -53,7 +54,7 @@ const AnimatedLetters = ({
     if (end) {
       gsap.to(lettersRef.current, {
         yPercent: -100,
-        stagger: 0.02,
+        stagger: stagger ? stagger : 0.02,
         ease: Power3.easeIn,
         delay: 0.4,
       });

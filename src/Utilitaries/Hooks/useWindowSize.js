@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect
+} from "react";
 export default function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
@@ -6,6 +9,7 @@ export default function useWindowSize() {
     width: undefined,
     height: undefined,
   });
+
   useEffect(() => {
     // Handler to call on window resize
     function handleResize() {

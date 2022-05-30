@@ -1,28 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 // Component
+import Intro from "./Intro";
 import Herobanner from "./Herobanner";
+import Article1 from "./Article1";
+import Article2 from "./Article2";
+import Article3 from "./Article3";
+import Article4 from "./Article4";
+import Contact from "./Contact";
 import BackgroundScene from "../../Three/ThreeScenes/BackgroundScene";
 import CanvasContainer from "../../Three/ThreeElements/CanvasContainer";
+// Custom Hooks
+import useWindowSize from "../../Utilitaries/Hooks/useWindowSize";
+import useLocoScroll from "../../Utilitaries/Hooks/useLocoScroll";
+// Assets
+import introImg from "../../Assets/Images/pottery_desktop.png";
+import heroImg from "../../Assets/Images/plant_desktop.png";
 
 export default function Homepage() {
+  const mainContainerRef = useRef();
   const [imageHovered, setImageHovered] = useState(false);
-  const [imageClicked, setImageClicked] = useState(false);
+  const [imageClicked, setImageClicked] = useState(true);
+  const { width } = useWindowSize();
 
+  // useLocoScroll(true, mainContainerRef.current);
   return (
-    <div id="Homepage">
-      <div className="html">
-        <Herobanner
-          imageClicked={imageClicked}
-          setImageHovered={setImageHovered}
-          setImageClicked={setImageClicked}
-        />
+    <div id="Homepage" data-scroll-container>
+      <div className="html" ref={mainContainerRef}>
+        {!imageClicked ? (
+          <Intro
+            imageClicked={imageClicked}
+            setImageHovered={setImageHovered}
+            setImageClicked={setImageClicked}
+          />
+        ) : (
+          <>
+            <Herobanner imageClicked={imageClicked} />
+            <Article1 />
+            <Article2 />
+            {/* <Article3 />
+            <Article4 />
+            <Contact /> */}
+          </>
+        )}
       </div>
-      <CanvasContainer>
-        <BackgroundScene
-          imageHovered={imageHovered}
-          imageClicked={imageClicked}
-        />
-      </CanvasContainer>
+      {width > 772 ? (
+        <CanvasContainer>
+          <BackgroundScene
+            imageHovered={imageHovered}
+            imageClicked={imageClicked}
+            introImg={introImg}
+            heroImg={heroImg}
+          />
+        </CanvasContainer>
+      ) : (
+        <> </>
+      )}
     </div>
   );
 }

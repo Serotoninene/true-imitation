@@ -1,6 +1,7 @@
 import React, { useRef, useMemo, useEffect, useLayoutEffect } from "react";
 // Gsap
-import gsap, { Power3 } from "gsap";
+import gsap, { Power2, Power3 } from "gsap";
+import * as THREE from "three";
 // R3F + react drei
 import { useFrame, useThree } from "@react-three/fiber";
 import { Html, useTexture } from "@react-three/drei";
@@ -8,29 +9,23 @@ import { Html, useTexture } from "@react-three/drei";
 import BackgroundMaterial from "../Shaders/BackgroundShader/BackgroundMaterial";
 
 // import backgroundPicture from "../../Assets/Images/dynamic-wang.jpg";
-import backgroundPictureMin from "../../Assets/Images/dynamic-wang-min.jpg";
 import displacementMap from "../../Assets/Images/displacementMap.jpg";
 
 export default function BackgroundScene(props) {
-  const { imageHovered, imageClicked } = props;
+  const { imageHovered, imageClicked, introImg, heroImg } = props;
   const shaderRef = useRef();
-  const { viewport } = useThree();
+  const { camera, viewport } = useThree();
+  const closeZ = 0.5 / Math.tan(((camera.fov / 2.0) * Math.PI) / 180.0);
 
   //  picture dimensions : 5560 × 3706 pixels
-  const [displacementt, backgroundt] = useTexture([
+  const [displacementt, introImgt, heroImgt] = useTexture([
     displacementMap,
-    backgroundPictureMin,
+    introImg,
+    heroImg,
   ]);
-
-  const imgAspect =
-    backgroundt.source.data.width / backgroundt.source.data.height;
-  let uvAspect = {};
-  const winAspect = viewport.width / viewport.height;
-  if (winAspect > imgAspect) {
-    uvAspect = { x: 1.0, y: imgAspect / winAspect };
-  } else {
-    uvAspect = { x: imgAspect / winAspect, y: 1 };
-  }
+  introImgt.encoding = THREE.LinearEncoding;
+  heroImgt.encoding = THREE.LinearEncoding;
+  let imgAspectRatio = heroImgt.image.height / heroImgt.image.width;
 
   if (shaderRef.current) {
     if (!imageClicked) {
@@ -51,12 +46,18 @@ export default function BackgroundScene(props) {
   }
 
   return (
-    <mesh>
-      <planeBufferGeometry args={[imgAspect * 2, 2]} />
+    <mesh position={[0.5, 0, closeZ]}>
+      <planeBufferGeometry
+        args={[viewport.height / imgAspectRatio, viewport.height, 1, 1]}
+      />
       <backgroundMaterial
         ref={shaderRef}
         needsUpdate={true}
-        uniforms-uTexture-value={backgroundt}
+        toneMapped={true}
+        uniforms-zMax-value={closeZ}
+        //  For easy dev I'm switching the two pictures so I can work on the herobanner HTML CSS
+        uniforms-uTexture1-value={introImgt}
+        uniforms-uTexture2-value={heroImgt}
         uniforms-uDisplacementMap-value={displacementt}
       />
     </mesh>
