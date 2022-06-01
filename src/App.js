@@ -1,7 +1,6 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 // React Components
 import Navbar from "./Components/Navbar";
-import Loader from "./Components/Loader";
 import About from "./Pages/About/About";
 import Homepage from "./Pages/Homepage/Homepage";
 import Test from "./Pages/Test/Test";
@@ -14,6 +13,7 @@ import "./Scss/style.scss";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [imageClicked, setImageClicked] = useState(false);
 
   // Okay so here is the hassle, I tried several things to preload all the images of the site
   // on launch.
@@ -55,21 +55,27 @@ function App() {
 
   return (
     <div className="App">
-      <Suspense fallback={<Loader />}>
-        <div className="hidden cachedImgs">
-          {imgs.map((img, idx) => (
-            <img src={img.asset} alt={img.name} key={idx} />
-          ))}
-        </div>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/test" element={<Test />} />
-          </Routes>
-        </Router>
-      </Suspense>
+      <div className="hidden cachedImgs">
+        {imgs.map((img, idx) => (
+          <img src={img.asset} alt={img.name} key={idx} />
+        ))}
+      </div>
+      <Router>
+        <Navbar imageClicked={imageClicked} setImageClicked={setImageClicked} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Homepage
+                imageClicked={imageClicked}
+                setImageClicked={setImageClicked}
+              />
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

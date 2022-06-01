@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 // Gsap
 import gsap, { Power3 } from "gsap";
-import { ScrollTrigger } from "gsap/all";
 // Custom Hooks
 import useScrollDirection from "../Utilitaries/Hooks/useScrollDirection";
 import useWindowSize from "../Utilitaries/Hooks/useWindowSize";
@@ -11,7 +10,8 @@ import { useLocation, Link } from "react-router-dom";
 import Button from "./Button";
 import BurgerMenu from "./BurgerMenu";
 
-export default function Navbar() {
+export default function Navbar(props) {
+  const { imageClicked } = props;
   const { width } = useWindowSize();
   const [darkMode, setDarkMode] = useState(false);
   const navbarRef = useRef();
@@ -24,27 +24,22 @@ export default function Navbar() {
     // omg so : I had to set up a timeline for the homepage only
     // cause it screwed the darkmode when i switched page
     const hpTl = gsap.timeline({ paused: true });
-
     // Doing so allow us to avoid playing the timeline when not on the homepage
+    if (imageClicked) {
+      hpTl.to([navbarRef.current, buttonRef.current], {
+        color: "#111111",
+        borderColor: "#111111",
+        scrollTrigger: {
+          trigger: "#Herobanner",
+          start: "top top+=98px",
+          toggleActions: "play none none reverse",
+          id: "Navbar",
+        },
+      });
+    }
+
     location.pathname === "/" ? hpTl.play() : hpTl.kill();
-    hpTl.to([navbarRef.current, buttonRef.current], {
-      color: "#111111",
-      borderColor: "#111111",
-      scrollTrigger: {
-        trigger: "#Herobanner",
-        start: "bottom top+=98px",
-        toggleActions: "play none none reverse",
-        id: "Navbar",
-      },
-    });
 
-    // The thing is I kill it every time I change page, not sure if that's the best...
-    return () => {
-      hpTl.kill();
-    };
-  }, [location.pathname]);
-
-  useEffect(() => {
     // Here i switch between light and darkmode in function of the page
     // There is only two pages so it helps ... I suck
     if (location.pathname !== "/") {
@@ -58,25 +53,30 @@ export default function Navbar() {
         borderColor: "#FFFFFF",
       });
     }
-  }, [location.pathname]);
 
-  useEffect(() => {
-    // and here again I'm gonna have to do sthg, I must only trigger on the hp
-    // I'll see when there will be room to scroll on the about page
-    // future me, try gathering everyting inside the same useEffect :)
-    if (isDown) {
-      gsap.to([navbarRef.current], {
-        y: -100,
-        ease: Power3.easeOut,
-        duration: 0.75,
-      });
-    } else {
-      gsap.to([navbarRef.current], {
-        y: 0,
-        ease: Power3.easeOut,
-      });
-    }
-  }, [isDown]);
+    // The thing is I kill it every time I change page, not sure if that's the best practise ...
+    return () => {
+      hpTl.kill();
+    };
+  }, [location.pathname, imageClicked]);
+
+  // useEffect(() => {
+  //   // and here again I'm gonna have to do sthg, I must only trigger on the hp
+  //   // I'll see when there will be room to scroll on the about page
+  //   // future me, try gathering everyting inside the same useEffect :)
+  //   if (isDown) {
+  //     gsap.to([navbarRef.current], {
+  //       y: -100,
+  //       ease: Power3.easeOut,
+  //       duration: 0.75,
+  //     });
+  //   } else {
+  //     gsap.to([navbarRef.current], {
+  //       y: 0,
+  //       ease: Power3.easeOut,
+  //     });
+  //   }
+  // }, [isDown]);
 
   return (
     <div

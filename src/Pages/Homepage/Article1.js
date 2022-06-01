@@ -25,6 +25,7 @@ export default function Article1() {
       scrollTrigger: {
         trigger: ".paragraph1",
         id: "article1",
+        markers: true,
         start: "25% bottom",
         toggleActions: "play none none reverse",
       },

@@ -38,66 +38,68 @@ export default function Intro(props) {
   }, [imageClicked]);
 
   return (
-    <div
-      id="Intro"
-      ref={introRef}
-      className="flex justify-center align-center relative"
-      data-scroll-section
-    >
-      <div className="flex-column align-center">
-        <h1>
-          <AnimatedLetters
-            title="Lorem Ipsum"
-            delay={1}
-            spacing="3rem"
-            end={imageClicked}
-          />{" "}
-        </h1>
-        <div
-          className="buttonContainer"
-          ref={(e) => {
-            refs.current[0] = e;
-          }}
-          onMouseEnter={() => {
-            setImageHovered(true);
-          }}
-          onMouseLeave={() => {
-            setImageHovered(false);
-          }}
-          onClick={() => {
-            setImageClicked(true);
-          }}
-        >
-          <div>
-            <Button> View Work </Button>
+    <div className="introContainer">
+      <div
+        id="Intro"
+        ref={introRef}
+        className="flex justify-center align-center relative "
+        data-scroll-section
+      >
+        <div className="flex-column align-center">
+          <h1>
+            <AnimatedLetters
+              title="Lorem Ipsum"
+              delay={1}
+              spacing="3rem"
+              end={imageClicked}
+            />{" "}
+          </h1>
+          <div
+            className="buttonContainer"
+            ref={(e) => {
+              refs.current[0] = e;
+            }}
+            onMouseEnter={() => {
+              setImageHovered(true);
+            }}
+            onMouseLeave={() => {
+              setImageHovered(false);
+            }}
+            onClick={() => {
+              setImageClicked(true);
+            }}
+          >
+            <div>
+              <Button> View Work </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* footer line */}
-      <div className="footer grid absolute">
-        <div
-          className="section left flex-column justify-between"
-          ref={(e) => {
-            refs.current[1] = e;
-          }}
-        >
-          <h5>Set builders for live events & luxury retail experiences.</h5>
-          <p>TRUE STAGING ¢2022</p>
-        </div>
-        <div
-          className="section right"
-          ref={(e) => {
-            refs.current[2] = e;
-          }}
-        >
-          <h5>YOUR DESIGNS: MADE REALITY</h5>
-          <p>
-            TRUE is a specialist in technical design, set fabrication and
-            construction. Your delivery partner for events ans installations
-            anywhere in the world. Our commitment to excellence is what sets us
-            apart.
-          </p>
+        {/* footer line */}
+        <div className="footer grid absolute">
+          <div
+            className="section left flex-column justify-between"
+            ref={(e) => {
+              refs.current[1] = e;
+            }}
+          >
+            <h5>Set builders for live events & luxury retail experiences.</h5>
+            <p>TRUE STAGING ¢2022</p>
+          </div>
+          <div
+            className="section right"
+            ref={(e) => {
+              refs.current[2] = e;
+            }}
+          >
+            <h5>YOUR DESIGNS: MADE REALITY</h5>
+            <p>
+              TRUE is a specialist in technical design, set fabrication and
+              construction. Your delivery partner for events ans installations
+              anywhere in the world. Our commitment to excellence is what sets
+              us apart.
+            </p>
+          </div>
         </div>
       </div>
     </div>

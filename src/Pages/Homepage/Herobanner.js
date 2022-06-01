@@ -19,6 +19,7 @@ export default function Herobanner(props) {
   const { width } = useWindowSize();
   const heroTl = useRef(
     gsap.timeline({
+      paused: true,
       defaults: {
         stagger: 0.1,
         ease: Power3.easeOut,
@@ -84,6 +85,10 @@ export default function Herobanner(props) {
       "<"
     );
   }, []);
+
+  useLayoutEffect(() => {
+    imageClicked && heroTl.current.play();
+  }, [imageClicked]);
 
   return (
     // Okay all the lines will be absolute positionned, no shits are given
