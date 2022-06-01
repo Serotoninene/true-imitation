@@ -72,3 +72,12 @@ p {
 canvas {
   height: 100vh;
 }
+
+// Cached images
+.cachedImgs {
+  position: fixed;
+  opacity: 0;
+  height: 0px;
+  width: 0px;
+  overflow: hidden;
+}

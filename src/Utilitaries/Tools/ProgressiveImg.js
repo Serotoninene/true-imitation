@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-export default function ProgressiveImg({ placeholderSrc, src, ...props }) {
-  const [imgSrc, setImgSrc] = useState(placeholderSrc || src);
+export default function ProgressiveImg({ placeholderSrc, src, ref, ...props }) {
+  const [imgSrc, setImgSrc] = useState(placeholderSrc);
   useEffect(() => {
     const img = new Image();
     img.src = src;

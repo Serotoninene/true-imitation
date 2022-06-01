@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useRef, useLayoutEffect } from "react";
+// Gsap
+import gsap, { Power1, Power3 } from "gsap";
 // Utils
 import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
+import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
 // assets
 import pic1 from "../../Assets/Images/jean-philippe.jpg";
 import pic2 from "../../Assets/Images/suhyeon.jpg";
@@ -11,12 +14,61 @@ import pic2_min from "../../Assets/Images/suhyeon-min.jpg";
 import pic3_min from "../../Assets/Images/black_chair-min.png";
 import pic4_min from "../../Assets/Images/mirror-min.png";
 
+const pics = [
+  { mainPic: pic1, placeholder: pic1_min, alt: "interior view", id: 1 },
+  { mainPic: pic2, placeholder: pic2_min, alt: "interior view", id: 2 },
+  { mainPic: pic3, placeholder: pic3_min, alt: "interior view", id: 3 },
+  { mainPic: pic4, placeholder: pic4_min, alt: "interior view", id: 4 },
+];
+
 export default function Article2() {
+  const textRef = useRef([]);
+  const imageRef = useRef([]);
+  const hoverTl = gsap.timeline({
+    paused: true,
+    defaults: { ease: Power3.easeOut },
+  });
+  hoverTl.to(imageRef.current, { xPercent: -10, stagger: 0.1, rotateX: -5 });
+
+  const handleHover = () => {
+    hoverTl.play();
+  };
+  const handleHoverOut = () => {
+    hoverTl.reverse();
+  };
+
+  useLayoutEffect(() => {
+    gsap.to(textRef.current, {
+      y: 0,
+      opacity: 1,
+      stagger: 0.25,
+      duration: 0.7,
+      ease: Power1.easeOut,
+      scrollTrigger: {
+        trigger: "#Article2",
+        id: "article2",
+        start: "top 40%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  }, []);
+
   return (
     <div data-scroll-section id="Article2" className="grid">
       <div className="left">
-        <h3>By changing, we grow, and by growing we learn</h3>
-        <p>
+        <h3>
+          <AnimatedWords
+            text="By changing, we grow, and by growing we learn"
+            trigger="#Article2"
+            startTrigger="center"
+          />
+        </h3>
+        <p
+          className="paragraph"
+          ref={(e) => {
+            textRef.current[1] = e;
+          }}
+        >
           Framer lets you apply code to a layer that will override the layer’s
           props when it is displayed in the preview window. An override is
           simply a function that returns new values for any properties you want
@@ -28,42 +80,36 @@ export default function Article2() {
       </div>
       <div className="right flex-column justify-between">
         <div className="flex justify-center text">
-          <p className="">
+          <p
+            className="paragraph"
+            ref={(e) => {
+              textRef.current[0] = e;
+            }}
+          >
             Framer lets you apply code to a layer that will override the layer’s
             props when it is displayed in the preview window. An override is
             simply a function that returns new values for any properties you
             want to override.
           </p>
         </div>
-        <div className="flex pics align-end">
-          <div className="pic1 pic">
-            <ProgressiveImg
-              placeholderSrc={pic1_min}
-              src={pic1}
-              alt="interior view"
-            />
-          </div>
-          <div className="pic2 pic">
-            <ProgressiveImg
-              placeholderSrc={pic2_min}
-              src={pic2}
-              alt="interior view"
-            />
-          </div>
-          <div className="pic3 pic">
-            <ProgressiveImg
-              placeholderSrc={pic3_min}
-              src={pic3}
-              alt="interior view"
-            />
-          </div>
-          <div className="pic4 pic">
-            <ProgressiveImg
-              placeholderSrc={pic4_min}
-              src={pic4}
-              alt="interior view"
-            />
-          </div>
+        <div
+          className="flex pics align-end"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHoverOut}
+        >
+          {pics.map((pic, idx) => (
+            <div
+              className="pic"
+              ref={(e) => (imageRef.current[idx] = e)}
+              key={pic.id}
+            >
+              <ProgressiveImg
+                placeholderSrc={pic.mainPic}
+                src={pic.placeholder}
+                alt={pic.alt}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

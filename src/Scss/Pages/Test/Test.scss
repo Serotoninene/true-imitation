@@ -1,0 +1,11 @@
+#Test {
+  height: 100vh;
+  border: 1px solid red;
+
+  & > div {
+    width: 40vw;
+  }
+  canvas {
+    width: 40%;
+  }
+}

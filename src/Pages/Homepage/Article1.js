@@ -3,33 +3,19 @@ import React, { useLayoutEffect, useRef } from "react";
 import gsap, { Power1, Power3 } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 // Utils
-import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
+import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
 // Assets
 import pic1 from "../../Assets/Images/spacejoy_dark.jpg";
-import pic1_min from "../../Assets/Images/spacejoy_dark-min.jpg";
 import pic2 from "../../Assets/Images/avery-klein.jpg";
-import pic2_min from "../../Assets/Images/avery-klein-min.jpg";
-import AnimatedLetters from "../../Utilitaries/Tools/AnimatedLetters";
-import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
+// Three
+import PicScene from "../../Three/ThreeScenes/PicScene";
+import { Canvas } from "@react-three/fiber";
 
 export default function Article1() {
   const imagesRef = useRef([]);
   const textRef = useRef([]);
 
   useLayoutEffect(() => {
-    gsap.to(imagesRef.current, {
-      y: 0,
-      opacity: 1,
-      stagger: 0.1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: "#Article1",
-        id: "article1",
-        start: "center center",
-        toggleActions: "play none none reverse",
-      },
-    });
-
     gsap.to(textRef.current, {
       y: 0,
       opacity: 1,
@@ -37,10 +23,21 @@ export default function Article1() {
       stagger: 0.1,
       ease: Power1.easeOut,
       scrollTrigger: {
+        trigger: ".paragraph1",
+        id: "article1",
+        start: "25% bottom",
+        toggleActions: "play none none reverse",
+      },
+    });
+    gsap.to(imagesRef.current, {
+      y: 0,
+      opacity: 1,
+      stagger: 0.1,
+      ease: Power3.easeOut,
+      scrollTrigger: {
         trigger: "#Article1",
-        id: "article1 Text",
-        markers: true,
-        start: "10% 25%",
+        id: "article1Img",
+        start: "25% 25%",
         toggleActions: "play none none reverse",
       },
     });
@@ -53,7 +50,6 @@ export default function Article1() {
           <AnimatedWords
             text="A decade of diabetes and creating diamonds for TRUE, the iconic
             disease brand."
-            spacing="1rem"
             trigger="#Article1"
             startTrigger="center"
           />
@@ -90,11 +86,9 @@ export default function Article1() {
             imagesRef.current[0] = e;
           }}
         >
-          <ProgressiveImg
-            src={pic1}
-            placeholderSrc={pic1_min}
-            alt="interior representation"
-          />
+          <Canvas linear>
+            <PicScene pic={pic1} trigger=".pic1" startTrigger="center top" />
+          </Canvas>
         </div>
         <div
           className="pic2"
@@ -102,11 +96,9 @@ export default function Article1() {
             imagesRef.current[1] = e;
           }}
         >
-          <ProgressiveImg
-            src={pic2}
-            placeholderSrc={pic2_min}
-            alt="interior representation"
-          />
+          <Canvas linear>
+            <PicScene pic={pic2} trigger=".pic2" />
+          </Canvas>
         </div>
       </div>
     </div>

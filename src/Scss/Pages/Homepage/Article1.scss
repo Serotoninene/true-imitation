@@ -5,6 +5,7 @@
   h2 {
     grid-column: 2 / 10;
     margin-bottom: 48px;
+    font-size: 40px;
     span {
       font-family: "Prettywise";
     }
@@ -25,16 +26,17 @@
 
   .pic1,
   .pic2 {
-    transform: translate(0, 500px);
     opacity: 0;
+    transform: translate(0, 50px);
+    max-height: 60vh;
   }
 
   .pic1 {
-    margin-top: 120px;
     grid-column: 1 / 7;
   }
 
   .pic2 {
+    margin-top: 60px;
     grid-column: 8 / 13;
   }
 

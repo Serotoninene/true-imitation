@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 // Component
 import Intro from "./Intro";
 import Herobanner from "./Herobanner";
@@ -7,6 +7,7 @@ import Article2 from "./Article2";
 import Article3 from "./Article3";
 import Article4 from "./Article4";
 import Contact from "./Contact";
+import Test from "../Test/Test";
 import BackgroundScene from "../../Three/ThreeScenes/BackgroundScene";
 import CanvasContainer from "../../Three/ThreeElements/CanvasContainer";
 // Custom Hooks
@@ -15,14 +16,17 @@ import useLocoScroll from "../../Utilitaries/Hooks/useLocoScroll";
 // Assets
 import introImg from "../../Assets/Images/pottery_desktop.png";
 import heroImg from "../../Assets/Images/plant_desktop.png";
+import { AssetContext } from "../../Utilitaries/Contexts/AssetContext";
 
-export default function Homepage() {
+export default function Homepage(props) {
+  const { imgs } = props;
   const mainContainerRef = useRef();
   const [imageHovered, setImageHovered] = useState(false);
-  const [imageClicked, setImageClicked] = useState(true);
+  const [imageClicked, setImageClicked] = useState(false);
   const { width } = useWindowSize();
 
   // useLocoScroll(true, mainContainerRef.current);
+
   return (
     <div id="Homepage" data-scroll-container>
       <div className="html" ref={mainContainerRef}>
@@ -35,11 +39,12 @@ export default function Homepage() {
         ) : (
           <>
             <Herobanner imageClicked={imageClicked} />
+            {/* <Test /> */}
             <Article1 />
             <Article2 />
-            {/* <Article3 />
+            <Article3 />
             <Article4 />
-            <Contact /> */}
+            <Contact />
           </>
         )}
       </div>

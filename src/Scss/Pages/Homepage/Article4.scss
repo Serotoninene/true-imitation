@@ -2,8 +2,12 @@
   background-color: $sweetBeige;
   padding: 80px 32px 32px;
 
+  h1 span {
+    font-family: "Prettywise";
+  }
+
   .hrLine {
-    width: 100%;
+    width: 0; // set up for animation
     height: 0.5px;
     background-color: $dark;
     margin-bottom: 16px;
@@ -14,6 +18,15 @@
 
     h2 {
       text-align: end;
+      // set up for animation
+      transform: translate(0, 50%);
+      opacity: 0;
+    }
+
+    p {
+      // set up for animation
+      transform: translate(0, 100%);
+      opacity: 0;
     }
   }
 

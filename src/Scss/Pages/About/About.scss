@@ -1,0 +1,18 @@
+#About {
+  padding: 96px 32px 0px 32px;
+  background-color: $sweetBeige;
+  min-height: 100vh;
+
+  .mainContent {
+    grid-column-start: span 7;
+
+    .icon {
+      width: 40px;
+    }
+  }
+
+  .picture {
+    padding: 8px;
+    grid-column: span 5;
+  }
+}

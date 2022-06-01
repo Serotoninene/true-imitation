@@ -5,21 +5,29 @@ import { ScrollTrigger } from "gsap/all";
 // Custom Hooks
 import useScrollDirection from "../Utilitaries/Hooks/useScrollDirection";
 import useWindowSize from "../Utilitaries/Hooks/useWindowSize";
+// React router
+import { useLocation, Link } from "react-router-dom";
 // Components
 import Button from "./Button";
 import BurgerMenu from "./BurgerMenu";
 
 export default function Navbar() {
   const { width } = useWindowSize();
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const navbarRef = useRef();
   const buttonRef = useRef();
   const burgerMenuRef = useRef();
   const { isDown } = useScrollDirection();
+  let location = useLocation();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to([navbarRef.current, buttonRef.current], {
+    // omg so : I had to set up a timeline for the homepage only
+    // cause it screwed the darkmode when i switched page
+    const hpTl = gsap.timeline({ paused: true });
+
+    // Doing so allow us to avoid playing the timeline when not on the homepage
+    location.pathname === "/" ? hpTl.play() : hpTl.kill();
+    hpTl.to([navbarRef.current, buttonRef.current], {
       color: "#111111",
       borderColor: "#111111",
       scrollTrigger: {
@@ -29,16 +37,33 @@ export default function Navbar() {
         id: "Navbar",
       },
     });
-  }, []);
 
-  // Makes the navbar components white or dark in function of the position on the page
-  useEffect(() => {
-    !darkMode
-      ? gsap.to(navbarRef.current, { color: "#111111" })
-      : gsap.to(navbarRef.current, { color: "#FFFFFF" });
-  }, [darkMode]);
+    // The thing is I kill it every time I change page, not sure if that's the best...
+    return () => {
+      hpTl.kill();
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
+    // Here i switch between light and darkmode in function of the page
+    // There is only two pages so it helps ... I suck
+    if (location.pathname !== "/") {
+      gsap.to([navbarRef.current, buttonRef.current], {
+        color: "#111111",
+        borderColor: "#111111",
+      });
+    } else {
+      gsap.to([navbarRef.current, buttonRef.current], {
+        color: "#FFFFFF",
+        borderColor: "#FFFFFF",
+      });
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    // and here again I'm gonna have to do sthg, I must only trigger on the hp
+    // I'll see when there will be room to scroll on the about page
+    // future me, try gathering everyting inside the same useEffect :)
     if (isDown) {
       gsap.to([navbarRef.current], {
         y: -100,
@@ -52,18 +77,25 @@ export default function Navbar() {
       });
     }
   }, [isDown]);
+
   return (
     <div
       id="Navbar"
-      className="flex justify-between align-center"
+      className={`flex justify-between align-center ${
+        darkMode ? "darkMode" : ""
+      }`}
       ref={navbarRef}
     >
-      <h3> TRUE </h3>
+      <h3>
+        <Link to="/">TRUE</Link>
+      </h3>
       {width < 772 ? (
         <BurgerMenu burgerMenuRef={burgerMenuRef} />
       ) : (
         <ul className="flex align-center">
-          <li>About us</li>
+          <li>
+            <Link to="/about">About us</Link>
+          </li>
           <li>Contact</li>
           <li>
             <Button buttonRef={buttonRef}>See work</Button>

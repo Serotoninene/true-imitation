@@ -48,32 +48,6 @@ export default function AnimatedWords(props) {
       ease: Power3.easeOut,
     });
 
-    //  Custom little anim only for the herobanner page
-    if (herobanner) {
-      const herobannerTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#Herobanner",
-          id: "HerobannerAnim",
-          start: "top top",
-          toggleActions: "play none none reverse",
-        },
-        defaults: {
-          ease: Power3.easeIn,
-          duration: 0.5,
-        },
-      });
-      herobannerTl.to([wordsRef.current[3], wordsRef.current[4]], {
-        yPercent: 100,
-      });
-      herobannerTl.to(
-        enchanteRef.current,
-        {
-          y: 0,
-        },
-        "<"
-      );
-    }
-
     return () => {
       tl.kill();
     };
