@@ -11,6 +11,8 @@ import pic2 from "../../Assets/Images/avery-klein.jpg";
 import PicScene from "../../Three/ThreeScenes/PicScene";
 import { Canvas } from "@react-three/fiber";
 
+// TO DO : see a way of preloading the canvases or at least the textures in it
+
 export default function Article1() {
   const imagesRef = useRef([]);
   const textRef = useRef([]);
@@ -87,7 +89,12 @@ export default function Article1() {
           }}
         >
           <Canvas linear>
-            <PicScene pic={pic1} trigger=".pic1" startTrigger="center top" />
+            <PicScene
+              pic={pic1}
+              trigger="#Article1"
+              startTrigger="25% 30%"
+              markers
+            />
           </Canvas>
         </div>
         <div
@@ -97,7 +104,12 @@ export default function Article1() {
           }}
         >
           <Canvas linear>
-            <PicScene pic={pic2} trigger=".pic2" />
+            <PicScene
+              pic={pic2}
+              trigger="#Article1"
+              startTrigger="25% 20%"
+              markers
+            />
           </Canvas>
         </div>
       </div>

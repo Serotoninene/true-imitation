@@ -5,12 +5,14 @@ import Loader from "./Components/Loader";
 import About from "./Pages/About/About";
 import Homepage from "./Pages/Homepage/Homepage";
 import Test from "./Pages/Test/Test";
+import Article4 from "./Pages/Homepage/Article4";
 // react router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Assets
 import imgs from "./images";
 // Styling
 import "./Scss/style.scss";
+import Contact from "./Pages/Homepage/Contact";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -45,27 +47,23 @@ function App() {
 
   useEffect(() => {
     // And here I trigger the functions, calling the imgs file not working at all
-    Promise.all(imgs.map((image) => loadImage(image.asset)))
-      .then(() => {
-        console.log("imgs have loaded ?");
-        setLoading(false);
-      })
-      .catch((err) => console.log("Failed to load images", err));
+    // Promise.all(imgs.map((image) => loadImage(image.asset)))
+    //   .then(() => {
+    //     console.log("imgs have loaded ?");
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => console.log("Failed to load images", err));
   }, []);
 
   return (
     <div className="App">
       <Suspense fallback={<Loader />}>
-        <div className="hidden cachedImgs">
-          {imgs.map((img, idx) => (
-            <img src={img.asset} alt={img.name} key={idx} />
-          ))}
-        </div>
         <Router>
           <Navbar />
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/article" element={<Contact />} />
             <Route path="/test" element={<Test />} />
           </Routes>
         </Router>

@@ -1,8 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
+// Gsap
+import gsap, { Power3 } from "gsap";
+// Utilities
+import AnimatedLetters from "../../Utilitaries/Tools/AnimatedLetters";
 // Assets
 import icon from "../../Assets/Icons/mainIcon_orange.svg";
 
 export default function Contact() {
+  const linesRef = useRef([]);
+  const [playLetterAnim, setPlayLetterAnim] = useState(false);
+
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#Contact",
+        start: "top 75%",
+        id: "contact",
+        markers: true,
+      },
+    });
+    tl.to(linesRef.current, {
+      y: 0,
+      opacity: 1,
+      stagger: 0.1,
+      ease: Power3.easeIn,
+      onComplete: () => {
+        setPlayLetterAnim(true);
+      },
+    });
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
   return (
     <div
       data-scroll-section
@@ -10,7 +41,21 @@ export default function Contact() {
       className="flex-column justify-between"
     >
       <h1 className="text-center">
-        stay in <br /> the loop <br /> <span>Contact us</span>
+        <span className="transform" ref={(e) => (linesRef.current[0] = e)}>
+          stay in
+        </span>
+        <br />
+        <span className="transform" ref={(e) => (linesRef.current[1] = e)}>
+          the loop
+        </span>
+        <br />
+        <span className="orange">
+          <AnimatedLetters
+            title="Contact us"
+            spacing="2rem"
+            play={!playLetterAnim}
+          />
+        </span>
       </h1>
       <div className="footerContainer ">
         <div className="hrLine"></div>

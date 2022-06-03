@@ -40,7 +40,7 @@ export default function Homepage(props) {
           <>
             <Herobanner imageClicked={imageClicked} />
             {/* <Test /> */}
-            <Article1 />
+            {/* <Article1 /> */}
             <Article2 />
             <Article3 />
             <Article4 />

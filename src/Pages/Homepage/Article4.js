@@ -1,36 +1,49 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useEffect, useLayoutEffect, useState } from "react";
 // Gsap
 import gsap, { Power3 } from "gsap";
+// Asset
+import pic1 from "../../Assets/Images/jean-philippe.jpg";
+import pic2 from "../../Assets/Images/mirror.png";
+import pic3 from "../../Assets/Images/suhyeon.jpg";
+import pic4 from "../../Assets/Images/spacejoy_dark.jpg";
+// Hooks
+import useMousePosition from "../../Utilitaries/Hooks/useMousePosition";
 // Utils
 import AnimatedLetters from "../../Utilitaries/Tools/AnimatedLetters";
 
 const content = [
-  {
-    title: "Venus",
-    ref: "#92973",
-  },
-  {
-    title: "Guernica",
-    ref: "#92974",
-  },
-  {
-    title: "Assise",
-    ref: "#92975",
-  },
-  {
-    title: "Mer ombragée",
-    ref: "#92976",
-  },
-  {
-    title: "Crète",
-    ref: "#92977",
-  },
+  { id: 0, title: "Venus", ref: "#92973", img: pic1 },
+  { id: 1, title: "Guernica", ref: "#92974", img: pic2 },
+  { id: 2, title: "Assise", ref: "#92975", img: pic3 },
+  { id: 3, title: "Mer ombragée", ref: "#92976", img: pic4 },
+  { id: 4, title: "Crète", ref: "#92977", img: pic1 },
 ];
 
 export default function Article4() {
+  const images = [];
+  content.forEach((c, i) => images.push(c.img));
+  const [mouseEnter, setMouseEnter] = useState(false);
+  const [imgShowed, setImgShowed] = useState(null);
   const titlesRef = useRef([]);
   const linesRef = useRef([]);
   const refRef = useRef([]);
+  const hoverImgs = useRef();
+  let { x, y } = useMousePosition();
+
+  // useLayoutEffect(() => {
+  //   const hoverTl = gsap.timeline();
+  //   hoverTl.to(hoverImgs.current, { x: x - 110, y: y - 160 });
+
+  //   if (mouseEnter) {
+  //     hoverTl.play();
+  //   } else {
+  //     hoverTl.kill();
+  //   }
+
+  //   return () => {
+  //     hoverTl.kill();
+  //   };
+  // }, [x, y, mouseEnter]);
 
   useLayoutEffect(() => {
     const tl = gsap.timeline({
@@ -65,7 +78,13 @@ export default function Article4() {
   }, []);
 
   return (
-    <div data-scroll-section id="Article4">
+    <div
+      onMouseEnter={() => setMouseEnter(true)}
+      onMouseLeave={() => setMouseEnter(false)}
+      data-scroll-section
+      id="Article4"
+      className="relative"
+    >
       <h1>
         <AnimatedLetters
           title="Collection"
@@ -74,7 +93,13 @@ export default function Article4() {
         />
       </h1>
       {content.map((c, i) => (
-        <div className={`article article${i}`} key={i}>
+        <div
+          className={`article article${i}`}
+          key={i}
+          onMouseEnter={() => {
+            setImgShowed(i);
+          }}
+        >
           <div
             className="hrLine"
             ref={(e) => {
@@ -99,6 +124,20 @@ export default function Article4() {
           </div>
         </div>
       ))}
+      {/* Image appearing on hover :) */}
+      {/* <div
+        className={`hover-reveal ${
+          mouseEnter ? "fixed" : "absolute transparent"
+        }`}
+        ref={(e) => (hoverImgs.current = e)}
+      >
+        <div
+          className="hover-reveal_inner"
+          style={{ backgroundImage: `url(${images[imgShowed]})` }}
+        >
+          <div className="hover-reveal_img"></div>
+        </div>
+      </div> */}
     </div>
   );
 }

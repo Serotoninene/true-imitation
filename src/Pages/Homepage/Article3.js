@@ -52,7 +52,7 @@ export default function Article3() {
       imagesRef.current.push(el.children[0]);
     });
     const tl = gsap.timeline({
-      defaults: { duration: 0.75, ease: Power3.easeIn },
+      defaults: { duration: 1, ease: Power3.easeOut },
       scrollTrigger: {
         trigger: "#Article3",
         start: "top center",

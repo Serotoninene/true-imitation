@@ -7,7 +7,7 @@ import displacementMap from "../../Assets/Images/displacementMap.jpg";
 import ImgMaterial from "../../Three/Shaders/ImgShader/ImgMaterial";
 
 export default function TestScene(props) {
-  const { trigger, pic, markers } = props;
+  const { trigger, pic, markers, startTrigger } = props;
   const shaderRef = useRef();
   const meshRef = useRef();
 
@@ -19,7 +19,7 @@ export default function TestScene(props) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: `${trigger}`,
-        start: "25% top",
+        start: `${startTrigger}`,
         id: "picScene",
         markers: markers ? true : false,
         toggleActions: "play none none reverse",
@@ -32,7 +32,7 @@ export default function TestScene(props) {
       meshRef.current.position,
       {
         y: 0,
-        z: 0.5,
+        z: 1,
       },
       "<"
     );

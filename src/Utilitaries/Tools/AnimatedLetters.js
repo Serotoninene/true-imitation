@@ -12,6 +12,7 @@ const AnimatedLetters = ({
   spacing,
   stagger,
   markers,
+  play,
   delay,
   end,
 }) => {
@@ -28,6 +29,10 @@ const AnimatedLetters = ({
 
     const tl = trigger
       ? gsap.timeline({
+          // if you want to trigger the animation in a callback, you can use the prop "play"
+          // but it works in a weird way : if play is true, it PAUSES the anim,
+          // and when it is false, it triggers the anim (see below)
+          paused: play ? true : false,
           scrollTrigger: {
             trigger: `${trigger}`,
             start: `top ${startTrigger}`,
@@ -38,7 +43,7 @@ const AnimatedLetters = ({
             markers: markers ? markers : false,
           },
         })
-      : gsap.timeline();
+      : gsap.timeline({ paused: play ? play : false });
 
     disable && tl.kill();
 
@@ -59,7 +64,9 @@ const AnimatedLetters = ({
         delay: 0.4,
       });
     }
-  }, [end]);
+    // There, when play is false, the anim is triggered
+    play === false && tl.play();
+  }, [end, play]);
 
   return (
     <span

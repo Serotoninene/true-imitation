@@ -7,8 +7,22 @@
     line-height: 165%;
 
     span {
-      color: $deepOrange;
+      height: auto;
+      display: inline-block;
       font-family: "Prettywise";
+    }
+
+    .transform {
+      opacity: 0;
+      transform: translate(0, 50px);
+    }
+
+    .orange {
+      color: $deepOrange;
+
+      span {
+        opacity: 1;
+      }
     }
   }
 
