@@ -5,13 +5,15 @@ import { ScrollTrigger } from "gsap/all";
 // Custom Hooks
 import useScrollDirection from "../Utilitaries/Hooks/useScrollDirection";
 import useWindowSize from "../Utilitaries/Hooks/useWindowSize";
+// Context
+import { useGlobalStateContext } from "../Utilitaries/Contexts/GlobalContext";
 // React router
 import { useLocation, Link } from "react-router-dom";
 // Components
 import Button from "./Button";
 import BurgerMenu from "./BurgerMenu";
 
-export default function Navbar() {
+export default function Navbar({ onCursor }) {
   const { width } = useWindowSize();
   const [darkMode, setDarkMode] = useState(false);
   const navbarRef = useRef();
@@ -19,6 +21,10 @@ export default function Navbar() {
   const burgerMenuRef = useRef();
   const { isDown } = useScrollDirection();
   let location = useLocation();
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+  }, []);
 
   useEffect(() => {
     // omg so : I had to set up a timeline for the homepage only
@@ -86,7 +92,11 @@ export default function Navbar() {
       }`}
       ref={navbarRef}
     >
-      <h3>
+      <h3
+        onMouseEnter={() => {
+          // onCursor("hovered");
+        }}
+      >
         <Link to="/">TRUE</Link>
       </h3>
       {width < 772 ? (

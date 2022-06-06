@@ -32,7 +32,7 @@ export default function Article4() {
 
   // useLayoutEffect(() => {
   //   const hoverTl = gsap.timeline();
-  //   hoverTl.to(hoverImgs.current, { x: x - 110, y: y - 160 });
+  //   hoverTl.to(hoverImgs.current, { x: x, y: y });
 
   //   if (mouseEnter) {
   //     hoverTl.play();

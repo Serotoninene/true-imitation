@@ -84,6 +84,14 @@
     background-color: $dark;
   }
 
+  .hrLine {
+    width: 0;
+  }
+
+  .vrtLine {
+    height: 0;
+  }
+
   // Media queries
   @media screen and (max-width: 772px) {
   }

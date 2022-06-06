@@ -12,11 +12,9 @@ import BackgroundScene from "../../Three/ThreeScenes/BackgroundScene";
 import CanvasContainer from "../../Three/ThreeElements/CanvasContainer";
 // Custom Hooks
 import useWindowSize from "../../Utilitaries/Hooks/useWindowSize";
-import useLocoScroll from "../../Utilitaries/Hooks/useLocoScroll";
 // Assets
 import introImg from "../../Assets/Images/pottery_desktop.png";
 import heroImg from "../../Assets/Images/plant_desktop.png";
-import { AssetContext } from "../../Utilitaries/Contexts/AssetContext";
 
 export default function Homepage(props) {
   const { imgs } = props;
@@ -40,7 +38,7 @@ export default function Homepage(props) {
           <>
             <Herobanner imageClicked={imageClicked} />
             {/* <Test /> */}
-            {/* <Article1 /> */}
+            <Article1 />
             <Article2 />
             <Article3 />
             <Article4 />

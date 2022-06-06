@@ -31,7 +31,6 @@ export default function CollectionComponent(props) {
             title={title}
             trigger={`.article${i}`}
             startTrigger="85%"
-            markers
           />
         </h2>
       </div>

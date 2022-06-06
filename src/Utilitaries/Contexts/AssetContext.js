@@ -98,7 +98,7 @@ export function AssetProvider(props) {
   ]);
   const changeAssets = (e) => setAssets(e.target.value, [...assets]);
   return (
-    <AssetContext.Provider value={{ assets, changeAsset: changeAssets }}>
+    <AssetContext.Provider value={{ assets, changeAssets: changeAssets }}>
       {props.children}
     </AssetContext.Provider>
   );

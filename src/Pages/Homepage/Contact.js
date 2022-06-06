@@ -8,26 +8,52 @@ import icon from "../../Assets/Icons/mainIcon_orange.svg";
 
 export default function Contact() {
   const linesRef = useRef([]);
+  const vrtLinesRefs = useRef([]);
+  const hrLinesRefs = useRef([]);
   const [playLetterAnim, setPlayLetterAnim] = useState(false);
 
   useLayoutEffect(() => {
     const tl = gsap.timeline({
+      defaults: { stagger: 0.5 },
       scrollTrigger: {
         trigger: "#Contact",
-        start: "top 75%",
-        id: "contact",
-        markers: true,
+        start: "top top",
+        id: "lines",
+        toggleActions: "play none none reverse",
       },
     });
-    tl.to(linesRef.current, {
+
+    gsap.to(linesRef.current, {
       y: 0,
       opacity: 1,
       stagger: 0.1,
       ease: Power3.easeIn,
-      onComplete: () => {
+      onStart: () => {
         setPlayLetterAnim(true);
       },
+      scrollTrigger: {
+        trigger: "#Contact",
+        start: "top center",
+        id: "contact",
+        toggleActions: "play none none reverse",
+      },
     });
+
+    tl.to(
+      hrLinesRefs.current,
+      {
+        duration: 2,
+        width: "100%",
+      },
+      "<"
+    );
+    tl.to(
+      vrtLinesRefs.current,
+      {
+        height: "100%",
+      },
+      "<"
+    );
 
     return () => {
       tl.kill();
@@ -58,10 +84,13 @@ export default function Contact() {
         </span>
       </h1>
       <div className="footerContainer ">
-        <div className="hrLine"></div>
+        <div className="hrLine" ref={(e) => (hrLinesRefs.current[0] = e)}></div>
         <div className="footer grid">
           <div className="socials footerSection flex ">
-            <div className="vrtLine"></div>
+            <div
+              className="vrtLine"
+              ref={(e) => (vrtLinesRefs.current[0] = e)}
+            ></div>
             <div className="flex-column">
               <h4> Our Socials</h4>
               <a>Instagram</a>
@@ -73,8 +102,16 @@ export default function Contact() {
             <div className="icon">
               <img src={icon} alt="true icon" className="img-fluid" />
             </div>
-            <div className="vrtLine absolute" style={{ left: 0 }}></div>
-            <div className="vrtLine absolute" style={{ right: 0 }}></div>
+            <div
+              className="vrtLine absolute"
+              style={{ left: 0 }}
+              ref={(e) => (vrtLinesRefs.current[0] = e)}
+            ></div>
+            <div
+              className="vrtLine absolute"
+              style={{ right: 0 }}
+              ref={(e) => (vrtLinesRefs.current[1] = e)}
+            ></div>
           </div>
           <div className="newsletter footerSection relative">
             <h5>
@@ -87,6 +124,7 @@ export default function Contact() {
             <div
               className="vrtLine absolute"
               style={{ right: 0, top: 0 }}
+              ref={(e) => (vrtLinesRefs.current[2] = e)}
             ></div>
           </div>
         </div>

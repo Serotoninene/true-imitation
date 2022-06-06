@@ -5,8 +5,8 @@ import { ScrollTrigger } from "gsap/all";
 // Utils
 import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
 // Assets
-import pic1 from "../../Assets/Images/spacejoy_dark.jpg";
-import pic2 from "../../Assets/Images/avery-klein.jpg";
+import pic1 from "../../Assets/Images/spacejoy_dark-mip.jpg";
+import pic2 from "../../Assets/Images/spacejoy_white-mip.jpg";
 // Three
 import PicScene from "../../Three/ThreeScenes/PicScene";
 import { Canvas } from "@react-three/fiber";
@@ -89,12 +89,7 @@ export default function Article1() {
           }}
         >
           <Canvas linear>
-            <PicScene
-              pic={pic1}
-              trigger="#Article1"
-              startTrigger="25% 30%"
-              markers
-            />
+            <PicScene pic={pic1} trigger="#Article1" startTrigger="25% 30%" />
           </Canvas>
         </div>
         <div
@@ -104,12 +99,7 @@ export default function Article1() {
           }}
         >
           <Canvas linear>
-            <PicScene
-              pic={pic2}
-              trigger="#Article1"
-              startTrigger="25% 20%"
-              markers
-            />
+            <PicScene pic={pic2} trigger="#Article1" startTrigger="25% 20%" />
           </Canvas>
         </div>
       </div>

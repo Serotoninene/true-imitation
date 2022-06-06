@@ -1,10 +1,11 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
 
 import displacementMap from "../../Assets/Images/displacementMap.jpg";
 import ImgMaterial from "../../Three/Shaders/ImgShader/ImgMaterial";
+import { FramebufferTexture } from "three";
 
 export default function TestScene(props) {
   const { trigger, pic, markers, startTrigger } = props;
@@ -12,6 +13,11 @@ export default function TestScene(props) {
   const meshRef = useRef();
 
   const [texture, tDisplacement] = useTexture([pic, displacementMap]);
+
+  // Checking out when the loading is done
+  useEffect(() => {
+    console.log("texture is loaded .. I think");
+  }, [texture]);
   let aspectRatio = texture.image.height / texture.image.width;
   const { viewport } = useThree();
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useContext } from "react";
 // React Components
 import Navbar from "./Components/Navbar";
 import Loader from "./Components/Loader";
@@ -6,13 +6,23 @@ import About from "./Pages/About/About";
 import Homepage from "./Pages/Homepage/Homepage";
 import Test from "./Pages/Test/Test";
 import Article4 from "./Pages/Homepage/Article4";
+// Global Context
+import { AssetProvider } from "./Utilitaries/Contexts/AssetContext";
+import {
+  GlobalProvider,
+  useGlobalStateContext,
+  useGlobalDispatchContext,
+  GlobalStateContext,
+} from "./Utilitaries/Contexts/GlobalContext";
 // react router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// Context
 // Assets
 import imgs from "./images";
 // Styling
 import "./Scss/style.scss";
 import Contact from "./Pages/Homepage/Contact";
+import CustomCursor from "./Components/CustomCursor";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -55,19 +65,31 @@ function App() {
     //   .catch((err) => console.log("Failed to load images", err));
   }, []);
 
+  const { cursorStyles } = useGlobalStateContext();
+  const dispatch = useGlobalDispatchContext();
+
+  // Checking the cursor type
+  const onCursor = (cursorType) => {
+    cursorType = cursorStyles.includes(cursorType) && cursorType;
+    dispatch({ type: "CURSOR_TYPE", action: cursorType });
+  };
+
   return (
     <div className="App">
-      <Suspense fallback={<Loader />}>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/article" element={<Contact />} />
-            <Route path="/test" element={<Test />} />
-          </Routes>
-        </Router>
-      </Suspense>
+      <GlobalProvider>
+        <CustomCursor />
+        <Suspense fallback={<Loader />}>
+          <Router>
+            <Navbar onCursor={onCursor} />
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/article" element={<Contact />} />
+              <Route path="/test" element={<Test />} />
+            </Routes>
+          </Router>
+        </Suspense>
+      </GlobalProvider>
     </div>
   );
 }
