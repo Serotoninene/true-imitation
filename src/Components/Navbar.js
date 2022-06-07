@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 // Gsap
 import gsap, { Power3 } from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/all";
 import useScrollDirection from "../Utilitaries/Hooks/useScrollDirection";
 import useWindowSize from "../Utilitaries/Hooks/useWindowSize";
 // Context
-import { useGlobalStateContext } from "../Utilitaries/Contexts/GlobalContext";
+import { CursorContext } from "../Utilitaries/Contexts/CursorContext";
 // React router
 import { useLocation, Link } from "react-router-dom";
 // Components
@@ -14,6 +14,7 @@ import Button from "./Button";
 import BurgerMenu from "./BurgerMenu";
 
 export default function Navbar({ onCursor }) {
+  const { cursorType, changeCursorType } = useContext(CursorContext);
   const { width } = useWindowSize();
   const [darkMode, setDarkMode] = useState(false);
   const navbarRef = useRef();
@@ -21,7 +22,6 @@ export default function Navbar({ onCursor }) {
   const burgerMenuRef = useRef();
   const { isDown } = useScrollDirection();
   let location = useLocation();
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
   }, []);
@@ -87,14 +87,15 @@ export default function Navbar({ onCursor }) {
   return (
     <div
       id="Navbar"
-      className={`flex justify-between align-center ${
-        darkMode ? "darkMode" : ""
-      }`}
+      className={`flex justify-between align-center`}
       ref={navbarRef}
     >
       <h3
         onMouseEnter={() => {
-          // onCursor("hovered");
+          changeCursorType("hovered");
+        }}
+        onMouseLeave={() => {
+          changeCursorType("");
         }}
       >
         <Link to="/">TRUE</Link>
@@ -103,11 +104,34 @@ export default function Navbar({ onCursor }) {
         <BurgerMenu burgerMenuRef={burgerMenuRef} />
       ) : (
         <ul className="flex align-center">
-          <li>
+          <li
+            onMouseEnter={() => {
+              changeCursorType("hovered");
+            }}
+            onMouseLeave={() => {
+              changeCursorType("");
+            }}
+          >
             <Link to="/about">About us</Link>
           </li>
-          <li>Contact</li>
-          <li>
+          <li
+            onMouseEnter={() => {
+              changeCursorType("hovered");
+            }}
+            onMouseLeave={() => {
+              changeCursorType("");
+            }}
+          >
+            Contact
+          </li>
+          <li
+            onMouseEnter={() => {
+              changeCursorType("hovered");
+            }}
+            onMouseLeave={() => {
+              changeCursorType("");
+            }}
+          >
             <Button buttonRef={buttonRef}>See work</Button>
           </li>
         </ul>

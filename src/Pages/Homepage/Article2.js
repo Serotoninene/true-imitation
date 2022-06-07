@@ -1,6 +1,6 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useEffect } from "react";
 // Gsap
-import gsap, { Power1, Power3 } from "gsap";
+import gsap, { Power1 } from "gsap";
 // Utils
 import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
 import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
@@ -24,18 +24,24 @@ const pics = [
 export default function Article2() {
   const textRef = useRef([]);
   const imageRef = useRef([]);
-  const hoverTl = gsap.timeline({
-    paused: true,
-    defaults: { ease: Power3.easeOut },
-  });
-  hoverTl.to(imageRef.current, { xPercent: -10, stagger: 0.1, rotateX: -5 });
+  const hoverTl = useRef();
 
   const handleHover = () => {
-    hoverTl.play();
+    console.log("hovering in");
+    hoverTl.current.play();
   };
   const handleHoverOut = () => {
-    hoverTl.reverse();
+    console.log("hovering out");
+    hoverTl.current.reverse();
   };
+
+  useEffect(() => {
+    hoverTl.current = gsap.to(imageRef.current, {
+      xPercent: -50,
+      stagger: 0.1,
+      paused: true,
+    });
+  }, []);
 
   useLayoutEffect(() => {
     gsap.to(textRef.current, {
@@ -94,8 +100,8 @@ export default function Article2() {
         </div>
         <div
           className="flex pics align-end"
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHoverOut}
+          onMouseEnter={() => handleHover()}
+          onMouseLeave={() => handleHoverOut()}
         >
           {pics.map((pic, idx) => (
             <div
@@ -104,8 +110,8 @@ export default function Article2() {
               key={pic.id}
             >
               <ProgressiveImg
-                placeholderSrc={pic.mainPic}
-                src={pic.placeholder}
+                placeholderSrc={pic.placeholder}
+                src={pic.mainPic}
                 alt={pic.alt}
               />
             </div>

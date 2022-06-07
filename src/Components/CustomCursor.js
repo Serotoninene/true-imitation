@@ -2,20 +2,14 @@ import { useEffect, useRef, useState, useContext } from "react";
 // Asset
 import img from "../Assets/Icons/mainIcon_orange.svg";
 // Context
-import {
-  useGlobalStateContext,
-  useGlobalDispatchContext,
-} from "../Utilitaries/Contexts/GlobalContext";
+import { CursorContext } from "../Utilitaries/Contexts/CursorContext";
 
 export default function CustomCursor() {
-  const { cursorType } = useGlobalStateContext();
-  // changeAssets(img);
-  // console.log(cursorType);
+  const { cursorType } = useContext(CursorContext);
   const cursorRef = useRef();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
+  const [mousePosition, setMousePosition] = useState({ x: 200, y: 200 });
   const onMouseMove = (event) => {
-    const { screenX: x, screenY: y } = event;
+    const { clientX: x, clientY: y } = event;
     setMousePosition({ x, y });
   };
 
@@ -29,9 +23,10 @@ export default function CustomCursor() {
   return (
     <div
       id="CustomCursor"
+      className={cursorType}
       ref={cursorRef}
       style={{
-        top: `${mousePosition.y - 104}px`,
+        top: `${mousePosition.y}px`,
         left: `${mousePosition.x}px`,
       }}
     ></div>

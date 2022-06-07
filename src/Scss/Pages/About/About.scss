@@ -1,19 +1,42 @@
 #About {
   padding: 96px 32px 0px 32px;
   background-color: $sweetBeige;
-  min-height: 100vh;
+  height: fit-content;
+  overflow: hidden;
 
   p {
-    font-size: 16px;
-    line-height: 180%;
+    font-size: 18px;
+    width: 80%;
+    line-height: 160%;
+  }
+
+  img {
+    // transform: scale(0.2);
+  }
+
+  .img-reveal {
+    background-color: $sweetBeige;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .text,
+  .icon {
+    opacity: 0;
+    transform: translateY(10px);
   }
 
   .mainContent {
     grid-column-start: span 7;
-    padding: 24px 16px;
 
     h1 {
+      padding: 24px 16px;
       width: 70%;
+      span {
+        font-family: "Prettywise";
+      }
     }
 
     .icon {
@@ -21,32 +44,176 @@
     }
 
     .legende {
+      padding: 24px 16px;
       padding-right: 32px;
-      p {
-        width: 80%;
-      }
     }
   }
 
   .picture {
-    margin: 8px;
+    padding: 10px;
     grid-column: span 5;
-    height: 50vh;
     overflow: hidden;
+
+    .imgContainer {
+      width: 100%;
+    }
+
+    img {
+      max-height: 55vh;
+      object-fit: cover;
+    }
   }
 
   .footer {
     .section {
+      height: 40vh;
+      padding: 10px;
       grid-column-start: span 3;
+
+      img {
+        overflow: hidden;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .hrModularLine {
+      display: none;
     }
 
     .section:nth-of-type(2) {
       grid-column-start: span 6;
+
+      h1 {
+        margin-bottom: 16px;
+      }
+
+      p {
+        width: 100%;
+        line-height: 180%;
+      }
+    }
+
+    .section:last-of-type img {
+      border-radius: 50% 50% 0 0;
     }
   }
 
   .vrtLine,
   .hrLine {
     background-color: $dark;
+    z-index: 1;
+  }
+
+  .vrtLine {
+    height: 0;
+  }
+
+  .hrLine {
+    width: 0%;
+  }
+
+  // Media queries
+  @media screen and (max-width: 992px) {
+    .vrtLine {
+      height: 200%;
+    }
+    .section {
+      grid-column-start: span 12;
+    }
+
+    // "Modular lines" are lines that have to tweak according to the screensize
+    // there are other ones in the footer, horizontal and vertical
+    .vrModularLine {
+      height: 200%;
+    }
+
+    .footer {
+      .section {
+        grid-column-start: span 6;
+      }
+
+      .section:last-of-type {
+        grid-column: span 12;
+      }
+
+      .vrModularLine {
+        height: 100%;
+      }
+
+      .hrModularLine {
+        display: block;
+      }
+
+      .section:last-of-type img {
+        border-radius: 100px 100px 0 0;
+      }
+    }
+  }
+
+  @media screen and (max-width: 772px) {
+    padding: 92px 16px 0px 16px;
+    .footer {
+      h2 {
+        font-size: 32px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 660px) {
+    h1 {
+      font-size: 48px;
+      line-height: 140%;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .mainContent h1 {
+      font-size: 40px;
+      width: 100%;
+    }
+
+    p {
+      font-size: 16px;
+      width: 100%;
+      line-height: 160%;
+    }
+
+    .picture {
+      img {
+        max-height: 20vh;
+        border-radius: 12px;
+      }
+    }
+
+    .icon {
+      display: none;
+    }
+
+    .footer {
+      .section:first-of-type {
+        display: none;
+      }
+
+      .section:nth-last-of-type(2) {
+        grid-column-start: span 12;
+        height: auto;
+      }
+    }
+
+    .vrtLine {
+      height: 0;
+    }
+
+    .hrLine {
+      width: 0;
+    }
+
+    .footer .vrModularLine {
+      height: 0;
+    }
   }
 }

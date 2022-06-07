@@ -1,10 +1,7 @@
 import React, { createContext, useReducer, useContext } from "react";
 
 //Define Conext
-export const GlobalStateContext = createContext({
-  cursorType: false,
-  cursorStyles: ["pointer", "hovered", "locked", "white"],
-});
+export const GlobalStateContext = createContext();
 export const GlobalDispatchContext = createContext();
 
 //Reducer
@@ -31,13 +28,14 @@ const globalReducer = (state, action) => {
 //Provider
 export const GlobalProvider = (props) => {
   const [state, dispatch] = useReducer(globalReducer, {
+    currentTheme: "dark",
     cursorType: false,
     cursorStyles: ["pointer", "hovered", "locked", "white"],
   });
 
   return (
-    <GlobalDispatchContext.Provider value={{ dispatch: dispatch }}>
-      <GlobalStateContext.Provider value={state}>
+    <GlobalDispatchContext.Provider value={{ dispatch }}>
+      <GlobalStateContext.Provider value={{ state }}>
         {props.children}
       </GlobalStateContext.Provider>
     </GlobalDispatchContext.Provider>

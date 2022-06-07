@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-export default function ProgressiveImg({ placeholderSrc, src, ref, ...props }) {
+export default function ProgressiveImg({
+  placeholderSrc,
+  src,
+  reference,
+  ...props
+}) {
   const [imgSrc, setImgSrc] = useState(placeholderSrc);
   useEffect(() => {
     const img = new Image();
@@ -14,6 +19,7 @@ export default function ProgressiveImg({ placeholderSrc, src, ref, ...props }) {
       {...{ src: imgSrc, ...props }}
       alt={props.alt || ""}
       className="img-fluid"
+      ref={reference}
     ></img>
   );
 }

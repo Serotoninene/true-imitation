@@ -1,29 +1,42 @@
 import React, { useLayoutEffect, useRef } from "react";
 // Gsap
 import gsap, { Power1, Power3 } from "gsap";
-import { ScrollTrigger } from "gsap/all";
 // Utils
 import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
 // Assets
-import pic1 from "../../Assets/Images/spacejoy_dark-mip.jpg";
-import pic2 from "../../Assets/Images/spacejoy_white-mip.jpg";
+import pic1 from "../../Assets/Images/spacejoy_dark-md.jpg";
+import pic1_min from "../../Assets/Images/spacejoy_dark-min.jpg";
+import pic2 from "../../Assets/Images/suhyeon.jpg";
+import pic2_min from "../../Assets/Images/suhyeon-min.jpg";
 // Three
-import PicScene from "../../Three/ThreeScenes/PicScene";
-import { Canvas } from "@react-three/fiber";
+import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
 
 // TO DO : see a way of preloading the canvases or at least the textures in it
 
 export default function Article1() {
+  const imagesContainerRef = useRef([]);
   const imagesRef = useRef([]);
   const textRef = useRef([]);
 
   useLayoutEffect(() => {
+    const imagesTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".pic1",
+        id: "article1Img",
+        start: "top center ",
+        toggleActions: "play none none reverse",
+      },
+      defaults: {
+        ease: [0.6, 0.05, -0.01, 0.9],
+      },
+    });
+
     gsap.to(textRef.current, {
       y: 0,
       opacity: 1,
       duration: 0.75,
       stagger: 0.1,
-      ease: Power1.easeOut,
+      ease: [0.6, 0.05, -0.01, 0.9],
       scrollTrigger: {
         trigger: ".paragraph1",
         id: "article1",
@@ -31,18 +44,19 @@ export default function Article1() {
         toggleActions: "play none none reverse",
       },
     });
-    gsap.to(imagesRef.current, {
+    imagesTl.to(imagesContainerRef.current, {
       y: 0,
-      opacity: 1,
-      stagger: 0.1,
-      ease: Power3.easeOut,
-      scrollTrigger: {
-        trigger: "#Article1",
-        id: "article1Img",
-        start: "25% 25%",
-        toggleActions: "play none none reverse",
-      },
     });
+    imagesTl.to(
+      imagesRef.current,
+      {
+        opacity: 1,
+        scale: 1,
+      },
+      "<"
+    );
+
+    return () => imagesTl.kill();
   }, []);
 
   return (
@@ -85,22 +99,28 @@ export default function Article1() {
         <div
           className="pic1"
           ref={(e) => {
-            imagesRef.current[0] = e;
+            imagesContainerRef.current[0] = e;
           }}
         >
-          <Canvas linear>
-            <PicScene pic={pic1} trigger="#Article1" startTrigger="25% 30%" />
-          </Canvas>
+          <ProgressiveImg
+            src={pic1}
+            placeholderSrc={pic1_min}
+            reference={(e) => (imagesRef.current[0] = e)}
+            alt="interior furniture"
+          />
         </div>
         <div
           className="pic2"
           ref={(e) => {
-            imagesRef.current[1] = e;
+            imagesContainerRef.current[1] = e;
           }}
         >
-          <Canvas linear>
-            <PicScene pic={pic2} trigger="#Article1" startTrigger="25% 20%" />
-          </Canvas>
+          <ProgressiveImg
+            src={pic2}
+            placeholderSrc={pic2_min}
+            reference={(e) => (imagesRef.current[1] = e)}
+            alt="interior furniture"
+          />
         </div>
       </div>
     </div>
