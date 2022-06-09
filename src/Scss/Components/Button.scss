@@ -7,6 +7,8 @@
   overflow: hidden;
   z-index: 1;
   cursor: pointer;
+  transition: all 0.2s ease-in;
+  transition-property: border, color;
 
   &::before {
     content: "";
@@ -22,5 +24,10 @@
 
   &:hover::before {
     top: 0;
+  }
+
+  &.darkMode {
+    color: $dark;
+    border: 1px solid $dark;
   }
 }

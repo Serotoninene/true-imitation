@@ -14,7 +14,7 @@ export default function Contact() {
 
   useLayoutEffect(() => {
     const tl = gsap.timeline({
-      defaults: { stagger: 0.5 },
+      defaults: { stagger: 0.1, ease: Power3.easeOut },
       scrollTrigger: {
         trigger: "#Contact",
         start: "top top",
@@ -42,7 +42,6 @@ export default function Contact() {
     tl.to(
       hrLinesRefs.current,
       {
-        duration: 2,
         width: "100%",
       },
       "<"

@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 
 export default function CanvasContainer(props) {
-  const imgAspectRatio = 1.5002698327037236;
   const cameraDistance = 5;
+
   return (
     <div className="CanvasContainer absolute" data-scroll-section>
       <Canvas

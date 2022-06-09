@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from "react";
 // Gsap
 import gsap, { Power1, Power3 } from "gsap";
 // Utils
+import ProgressiveImage from "react-progressive-graceful-image";
 import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
 // Assets
 import pic1 from "../../Assets/Images/spacejoy_dark-md.jpg";
@@ -20,6 +21,7 @@ export default function Article1() {
 
   useLayoutEffect(() => {
     const imagesTl = gsap.timeline({
+      paused: true,
       scrollTrigger: {
         trigger: ".pic1",
         id: "article1Img",
@@ -50,7 +52,6 @@ export default function Article1() {
     imagesTl.to(
       imagesRef.current,
       {
-        opacity: 1,
         scale: 1,
       },
       "<"
@@ -102,25 +103,35 @@ export default function Article1() {
             imagesContainerRef.current[0] = e;
           }}
         >
-          <ProgressiveImg
-            src={pic1}
-            placeholderSrc={pic1_min}
-            reference={(e) => (imagesRef.current[0] = e)}
-            alt="interior furniture"
-          />
+          <ProgressiveImage src={pic1} placeholder={pic1_min}>
+            {(src, loading) => (
+              <img
+                className="img-fluid"
+                ref={(e) => (imagesRef.current[0] = e)}
+                style={{ opacity: loading ? 0.5 : 1 }}
+                src={src}
+                alt="interior furniture"
+              />
+            )}
+          </ProgressiveImage>
         </div>
         <div
-          className="pic2"
+          className="pic2 flex align-end"
           ref={(e) => {
             imagesContainerRef.current[1] = e;
           }}
         >
-          <ProgressiveImg
-            src={pic2}
-            placeholderSrc={pic2_min}
-            reference={(e) => (imagesRef.current[1] = e)}
-            alt="interior furniture"
-          />
+          <ProgressiveImage src={pic2} placeholder={pic2_min}>
+            {(src, loading) => (
+              <img
+                className="img-fluid"
+                ref={(e) => (imagesRef.current[1] = e)}
+                style={{ opacity: loading ? 0.5 : 1 }}
+                src={src}
+                alt="interior furniture"
+              />
+            )}
+          </ProgressiveImage>
         </div>
       </div>
     </div>

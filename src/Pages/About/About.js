@@ -3,7 +3,7 @@ import react, { useLayoutEffect, useRef } from "react";
 import gsap, { Power3 } from "gsap";
 // Utils
 import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
-import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
+import ProgressiveImage from "react-progressive-graceful-image";
 import useWindowSize from "../../Utilitaries/Hooks/useWindowSize";
 // Assets
 import nathan_oakley_min from "../../Assets/Images/nathan-oakley-min.jpg";
@@ -134,11 +134,17 @@ export default function About() {
             style={{ left: 0, top: 0 }}
           ></div>
           <div className="imgContainer">
-            <ProgressiveImg
-              placeholderSrc={blackChair_min}
-              src={blackChair}
-              reference={(e) => (imagesRef.current[0] = e)}
-            />
+            <ProgressiveImage src={blackChair} placeholder={blackChair_min}>
+              {(src, loading) => (
+                <img
+                  ref={(e) => (imagesRef.current[0] = e)}
+                  className="img-fluid"
+                  style={{ opacity: loading ? 0.5 : 1 }}
+                  src={src}
+                  alt={"black chair"}
+                />
+              )}
+            </ProgressiveImage>
           </div>
           <div
             ref={(e) => (imageReveals.current[0] = e)}
@@ -154,11 +160,17 @@ export default function About() {
             className="vrtLine absolute"
             style={{ left: 0, top: 0 }}
           ></div>
-          <ProgressiveImg
-            placeholderSrc={jean_philippe_min}
-            src={jean_philippe}
-            reference={(e) => (imagesRef.current[1] = e)}
-          />
+          <ProgressiveImage src={jean_philippe} placeholder={jean_philippe_min}>
+            {(src, loading) => (
+              <img
+                className="img-fluid"
+                style={{ opacity: loading ? 0.5 : 1 }}
+                src={src}
+                ref={(e) => (imagesRef.current[1] = e)}
+                alt="photographe : jean philippe"
+              />
+            )}
+          </ProgressiveImage>
           <div
             ref={(e) => (imageReveals.current[1] = e)}
             className="img-reveal"
@@ -196,12 +208,17 @@ export default function About() {
             className="hrLine hrModularLine absolute "
             style={{ right: 0, top: 0 }}
           ></div>
-
-          <ProgressiveImg
-            placeholderSrc={nathan_oakley_min}
-            src={nathan_oakley}
-            reference={(e) => (imagesRef.current[2] = e)}
-          />
+          <ProgressiveImage src={nathan_oakley} placeholder={nathan_oakley_min}>
+            {(src, loading) => (
+              <img
+                className="img-fluid"
+                ref={(e) => (imagesRef.current[2] = e)}
+                style={{ opacity: loading ? 0.5 : 1 }}
+                src={src}
+                alt="interior furniture"
+              />
+            )}
+          </ProgressiveImage>
           <div
             ref={(e) => (imageReveals.current[2] = e)}
             className="img-reveal"

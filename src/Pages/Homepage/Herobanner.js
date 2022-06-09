@@ -12,7 +12,6 @@ import bgTabletSm from "../../Assets/Images/Homepage-herobanner_tablet-sm.png";
 import AnimatedLetters from "../../Utilitaries/Tools/AnimatedLetters";
 
 export default function Herobanner(props) {
-  const { imageClicked } = props;
   const vrtLinesRefs = useRef([]);
   const hrLinesRefs = useRef([]);
   const elRefs = useRef([]);
@@ -36,7 +35,7 @@ export default function Herobanner(props) {
 
   // For responsiveness, tweak those values instead of the css ones,
   // They have influence on the line positions
-  let marginBottom = "40px";
+  let marginBottom = "32px";
   let marginRight = "32px";
   let rightSectionPadding = "16px"; // paddingBottom is also used for left and right in the right section part
   let titlePaddingY = "48px";
@@ -54,7 +53,7 @@ export default function Herobanner(props) {
     rightSectionPadding = "24px";
   } else {
     heroBackground = null;
-    marginBottom = "40px";
+    marginBottom = "32px";
     marginRight = "32px";
     rightSectionPadding = "16px"; // paddingBottom is also used for left and right in the right section part
     titlePaddingY = "48px";

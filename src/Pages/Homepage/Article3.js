@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 // Utils
 import useWindowSize from "../../Utilitaries/Hooks/useWindowSize";
-import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
+import ProgressiveImage from "react-progressive-graceful-image";
 // Gsap
 import gsap, { Power3 } from "gsap";
 // Assets
@@ -52,7 +52,7 @@ export default function Article3() {
       imagesRef.current.push(el.children[0]);
     });
     const tl = gsap.timeline({
-      defaults: { duration: 1, ease: Power3.easeOut },
+      defaults: { duration: 0.5, ease: Power3.easeOut },
       scrollTrigger: {
         trigger: "#Article3",
         start: "top center",
@@ -91,12 +91,16 @@ export default function Article3() {
               imagesContainerRef.current[i] = e;
             }}
           >
-            <ProgressiveImg
-              placeholderSrc={c.placeholder}
-              src={c.img}
-              alt={c.alt}
-              className="img-fluid"
-            />
+            <ProgressiveImage src={c.img} placeholder={c.placeholder}>
+              {(src, loading) => (
+                <img
+                  className="img-fluid"
+                  style={{ opacity: loading ? 0.5 : 1 }}
+                  src={src}
+                  alt={c.alt}
+                />
+              )}
+            </ProgressiveImage>
           </div>
         </div>
       ))}

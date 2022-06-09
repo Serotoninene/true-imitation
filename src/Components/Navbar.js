@@ -13,8 +13,8 @@ import { useLocation, Link } from "react-router-dom";
 import Button from "./Button";
 import BurgerMenu from "./BurgerMenu";
 
-export default function Navbar({ onCursor }) {
-  const { cursorType, changeCursorType } = useContext(CursorContext);
+export default function Navbar() {
+  const { changeCursorType } = useContext(CursorContext);
   const { width } = useWindowSize();
   const [darkMode, setDarkMode] = useState(false);
   const navbarRef = useRef();
@@ -22,47 +22,30 @@ export default function Navbar({ onCursor }) {
   const burgerMenuRef = useRef();
   const { isDown } = useScrollDirection();
   let location = useLocation();
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-  }, []);
-
-  useEffect(() => {
-    // omg so : I had to set up a timeline for the homepage only
-    // cause it screwed the darkmode when i switched page
-    const hpTl = gsap.timeline({ paused: true });
-
-    // Doing so allow us to avoid playing the timeline when not on the homepage
-    location.pathname === "/" ? hpTl.play() : hpTl.kill();
-    hpTl.to([navbarRef.current, buttonRef.current], {
-      color: "#111111",
-      borderColor: "#111111",
-      scrollTrigger: {
+    location.pathname === "/" &&
+      ScrollTrigger.create({
         trigger: "#Herobanner",
         start: "bottom top+=98px",
+        end: "bottom top",
         toggleActions: "play none none reverse",
         id: "Navbar",
-      },
-    });
+        onEnter: () => {
+          setDarkMode(true);
+        },
+        onEnterBack: () => {
+          setDarkMode(false);
+        },
+      });
 
-    // The thing is I kill it every time I change page, not sure if that's the best...
-    return () => {
-      hpTl.kill();
-    };
-  }, [location.pathname]);
-
-  useEffect(() => {
     // Here i switch between light and darkmode in function of the page
     // There is only two pages so it helps ... I suck
-    if (location.pathname !== "/") {
-      gsap.to([navbarRef.current, buttonRef.current], {
-        color: "#111111",
-        borderColor: "#111111",
-      });
+    if (location.pathname === "/about") {
+      darkMode === false && setDarkMode(true);
     } else {
-      gsap.to([navbarRef.current, buttonRef.current], {
-        color: "#FFFFFF",
-        borderColor: "#FFFFFF",
-      });
+      darkMode === true && setDarkMode(false);
     }
   }, [location.pathname]);
 
@@ -87,7 +70,9 @@ export default function Navbar({ onCursor }) {
   return (
     <div
       id="Navbar"
-      className={`flex justify-between align-center`}
+      className={`${
+        darkMode ? "darkMode" : ""
+      } flex justify-between align-center`}
       ref={navbarRef}
     >
       <h3
@@ -98,10 +83,14 @@ export default function Navbar({ onCursor }) {
           changeCursorType("");
         }}
       >
-        <Link to="/">TRUE</Link>
+        <Link to="/"> TRUE </Link>
       </h3>
       {width < 772 ? (
-        <BurgerMenu burgerMenuRef={burgerMenuRef} />
+        <BurgerMenu
+          darkMode={darkMode}
+          burgerMenuRef={burgerMenuRef}
+          changeCursorType={changeCursorType}
+        />
       ) : (
         <ul className="flex align-center">
           <li
@@ -112,7 +101,7 @@ export default function Navbar({ onCursor }) {
               changeCursorType("");
             }}
           >
-            <Link to="/about">About us</Link>
+            <Link to="/about"> About us </Link>
           </li>
           <li
             onMouseEnter={() => {
@@ -132,7 +121,10 @@ export default function Navbar({ onCursor }) {
               changeCursorType("");
             }}
           >
-            <Button buttonRef={buttonRef}>See work</Button>
+            <Button buttonRef={buttonRef} darkMode={darkMode}>
+              {" "}
+              See work{" "}
+            </Button>
           </li>
         </ul>
       )}

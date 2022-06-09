@@ -26,22 +26,21 @@
 
   .pic1,
   .pic2 {
-    transform: translate(0, 50px);
+    transform: translate(0, 10px);
     overflow: hidden;
     img {
-      object-fit: contain;
-      transform-origin: bottom;
       transform: scale(1.5);
     }
   }
 
   .pic1 {
     grid-column: 1 / 7;
+    transform-origin: top top;
   }
 
   .pic2 {
     margin-top: 60px;
-    grid-column: 8 / 12;
+    grid-column: 8 / 13;
     max-height: 70vh;
   }
 

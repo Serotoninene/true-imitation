@@ -5,6 +5,7 @@ import Loader from "./Components/Loader";
 import About from "./Pages/About/About";
 import Homepage from "./Pages/Homepage/Homepage";
 import Test from "./Pages/Test/Test";
+import Herobanner from "./Pages/Homepage/Herobanner";
 import Article2 from "./Pages/Homepage/Article2";
 import Article4 from "./Pages/Homepage/Article4";
 import CustomCursor from "./Components/CustomCursor";
@@ -26,7 +27,7 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/about" element={<About />} />
               <Route path="/article" element={<Article2 />} />
-              <Route path="/test" element={<Test />} />
+              <Route path="/test" element={<Herobanner />} />
             </Routes>
           </Router>
         </Suspense>

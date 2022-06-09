@@ -2,7 +2,7 @@ import React, { useRef, useLayoutEffect, useEffect } from "react";
 // Gsap
 import gsap, { Power1 } from "gsap";
 // Utils
-import ProgressiveImg from "../../Utilitaries/Tools/ProgressiveImg";
+import ProgressiveImage from "react-progressive-graceful-image";
 import AnimatedWords from "../../Utilitaries/Tools/AnimatedWords";
 // assets
 import pic1 from "../../Assets/Images/jean-philippe.jpg";
@@ -27,11 +27,9 @@ export default function Article2() {
   const hoverTl = useRef();
 
   const handleHover = () => {
-    console.log("hovering in");
     hoverTl.current.play();
   };
   const handleHoverOut = () => {
-    console.log("hovering out");
     hoverTl.current.reverse();
   };
 
@@ -109,11 +107,16 @@ export default function Article2() {
               ref={(e) => (imageRef.current[idx] = e)}
               key={pic.id}
             >
-              <ProgressiveImg
-                placeholderSrc={pic.placeholder}
-                src={pic.mainPic}
-                alt={pic.alt}
-              />
+              <ProgressiveImage src={pic.mainPic} placeholder={pic.placeholder}>
+                {(src, loading) => (
+                  <img
+                    className="img-fluid"
+                    style={{ opacity: loading ? 0.5 : 1 }}
+                    src={src}
+                    alt={pic.alt}
+                  />
+                )}
+              </ProgressiveImage>
             </div>
           ))}
         </div>

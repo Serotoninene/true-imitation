@@ -20,7 +20,7 @@ export default function Homepage(props) {
   const { imgs } = props;
   const mainContainerRef = useRef();
   const [imageHovered, setImageHovered] = useState(false);
-  const [imageClicked, setImageClicked] = useState(false);
+  const [imageClicked, setImageClicked] = useState(false); // to change into false (set to true for testing purposes)
   const { width } = useWindowSize();
 
   // useLocoScroll(true, mainContainerRef.current);
@@ -46,7 +46,7 @@ export default function Homepage(props) {
           </>
         )}
       </div>
-      {width > 772 ? (
+      {width > 772 || !imageClicked ? (
         <CanvasContainer>
           <BackgroundScene
             imageHovered={imageHovered}
